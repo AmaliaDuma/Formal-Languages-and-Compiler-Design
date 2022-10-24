@@ -1,0 +1,41 @@
+The words - predefined tokens are specified between " and ":
+
+Syntactical rules:
+
+  relation = ">" | ">=" | "<" | "<=" | "==" | "!="
+ 
+  logicOperator = "&&" | "||"
+
+  genericType = "int" | "char" 
+
+  arrayType = genericType "[" intConst "]"
+
+  type = genericType | arrayType
+
+  expression = expression (" + " | " - ") term | term
+
+  term = term (" * " | " / ") factor | factor
+
+  factor = "(" expression ")" | (identifier | constant)
+
+  condition = expression relation expression [logicOperator condition]
+  
+  declStmt = identifier ":" type
+
+  assignStmt = identifier "=" expression
+
+  ioStmt = ">>" identifier | "<<" (identifier | constant)
+
+  ifStmt = "if" "(" condition ")" block {"elif" "(" condition ")" block} ["else" block]
+
+  whileStmt = "while" condition block
+
+  simpleStmt = (declStmt | assignStmt | ioStmt) ";"
+
+  structStmt = ifStmt | whileStmt
+
+  stmt = (simpleStmt | structStmt) {stmt}
+
+  block = "{" stmt "}"
+
+  program = block

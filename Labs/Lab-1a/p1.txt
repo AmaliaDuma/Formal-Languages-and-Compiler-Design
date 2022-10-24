@@ -1,0 +1,20 @@
+{
+	a : int;
+	b : int;
+	c : int;
+	maxNr : int;
+	
+	>>a;
+	>>b;
+	>>c;
+	
+	if (a>=b && a>=c) {
+		maxNr = a;
+	} elif (b>=a && b>=c) {
+		maxNr = b;
+	} else {
+		maxNr = c;
+	}
+	
+	<<maxNr;
+}

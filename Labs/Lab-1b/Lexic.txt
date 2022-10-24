@@ -1,0 +1,35 @@
+Alphabet:
+  a. Upper (A-Z) and lower case letters (a-z) of the English alphabet
+  b. Underline character '_'
+  c. Decimal digits (0-9)
+
+Lexic:
+  a. Special symbols, representing:
+    1. Operators:
+      • Arithmetic: + - * / %
+      • Relational: == != > >= < <=
+      • Logical: && || !
+      • Assignment: =
+      • Input/Output: << >>
+    2. Separators: : ; space \n \t {} [] ()
+    3. Reserved words: if elif else while int char
+
+  b. Identifiers (sequence of uppercase or lowercase letters and digits, such that the first character is a letter)
+    letter = "A" | "B" | ... | "Z" | "a" | "b" | ... | "z"
+    digit = "0" | "1" | ... | "9"
+    identifier = letter {letter | digit}
+
+  c. Constants
+    1. Integer - rule:
+      nonZeroDigit = "1" | "2" | ... | "9"
+      number = "0" | [ "+" | "-" ] nonZeroDigit {digit}
+      intConst = number
+
+    2. Character
+      specialChar = "." | ";" | "," | " " | "-" | "(" | ")" 
+      charConst = " ' " letter " ' " | " ' " digit " ' " | " ' " specialChar " ' "
+ 
+    3. String
+      stringConst = " " " {letter | digit | specialChar} " " "
+
+      
