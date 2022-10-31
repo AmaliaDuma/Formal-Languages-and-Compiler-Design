@@ -54,7 +54,7 @@ class Scanner:
 
     def _getStringConst(self, line, index):
         """
-        Find the next string constant in the line. \n
+        Find the next string constant in the given line. \n
         :param line: line in the file
         :param index: crt position in line
         :return: (string constant, new position in line)
