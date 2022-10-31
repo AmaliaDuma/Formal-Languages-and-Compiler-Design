@@ -12,7 +12,7 @@ class Scanner:
 
     def _isOperatorPart(self, char):
         """
-        Checks if the given char is a part of an operator
+        Checks if the given char is a part of an operator. \n
         :param char: char
         :return: true | false
         """
@@ -23,7 +23,7 @@ class Scanner:
 
     def _getOperator(self, line, index):
         """
-        Finds the next operator in the given line
+        Finds the next operator in the given line. \n
         :param line: line in the file
         :param index: crt position in line
         :return: (operator, new position in line)
@@ -38,7 +38,7 @@ class Scanner:
 
     def _getStringConst(self, line, index):
         """
-        Find the next string constant in the line
+        Find the next string constant in the line. \n
         :param line: line in the file
         :param index: crt position in line
         :return: (string constant, new position in line)
@@ -99,12 +99,26 @@ class Scanner:
         return tokens
 
     def _isIdentifier(self, token):
+        """
+        Checks if token is an identifier. \n
+        :param token:
+        :return: true | false
+        """
         return re.match(identifier, token) is not None
 
     def _isConstant(self, token):
+        """
+        Checks if token is a constant. \n
+        :param token:
+        :return: true | false
+        """
         return re.match(constant, token) is not None
 
     def scanFile(self, filename):
+        """
+        Scans the file, detects, classifies and codifies the tokens. \n
+        :param filename: name of the file
+        """
         exception = ''
         with open(filename, 'r') as file:
             crt_line = 0
@@ -124,7 +138,7 @@ class Scanner:
                     elif self._isConstant(tokens[i]):
                         self._pif.add("constant", self._st.add(tokens[i]))
                     else:
-                        exception += 'lexical error at token[' + tokens[i] + '] at line[' + str(crt_line) + "]\n"
+                        exception += 'lexical error at token[' + tokens[i] + '] at line[' + str(crt_line) + "] : token can't be classified\n"
 
         with open("st.out", 'w') as writer:
             writer.write(str(self._st))

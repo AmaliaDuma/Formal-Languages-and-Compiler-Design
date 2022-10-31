@@ -7,9 +7,15 @@ class FileReader:
         self.__tokens = []
 
     def open_file(self):
+        """
+        Opens the file and returns a stream
+        """
         return open(self.__filename, "r")
 
     def parse_file(self):
+        """
+        Parses the file and retrieves the tokens that are delimited by separators
+        """
         file_stream = self.open_file()
         crt_token = ""
 

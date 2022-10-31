@@ -1,5 +1,5 @@
 {
-	3a :: int;
+	3a : int;
 	b : int;
 	c : int;
 	maxNr : int;

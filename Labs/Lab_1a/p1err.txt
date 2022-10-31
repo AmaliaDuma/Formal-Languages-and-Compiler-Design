@@ -1,14 +1,14 @@
 {
-	3a : int;   <- error identifier starts with 3
+	3a : int;
 	b : int;
 	c : int;
 	maxNr : int;
 	
-	>>a;s
+	>>a;
 	>>b;
 	>>c;
 	
-	if (a >= b && a >= c {   <- error missing )
+	if (a => b && a >= c) {
 		maxNr = a;
 	} else if (b >= a && b >= c) {
 		maxNr = b;
