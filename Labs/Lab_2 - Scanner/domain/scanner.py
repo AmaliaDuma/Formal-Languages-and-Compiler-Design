@@ -10,6 +10,22 @@ class Scanner:
         self._st = HashTable(10)
         self._pif = PIF()
 
+    def _isIdentifier(self, token):
+        """
+        Checks if token is an identifier. \n
+        :param token:
+        :return: true | false
+        """
+        return re.match(identifier, token) is not None
+
+    def _isConstant(self, token):
+        """
+        Checks if token is a constant. \n
+        :param token:
+        :return: true | false
+        """
+        return re.match(constant, token) is not None
+
     def _isOperatorPart(self, char):
         """
         Checks if the given char is a part of an operator. \n
@@ -65,7 +81,6 @@ class Scanner:
         tokens = []
 
         while index < len(line):
-            a = line[index]
             if self._isOperatorPart(line[index]):
                 # If crt char is a possible operator
                 if token:
@@ -97,22 +112,6 @@ class Scanner:
         if token:
             tokens.append(token)
         return tokens
-
-    def _isIdentifier(self, token):
-        """
-        Checks if token is an identifier. \n
-        :param token:
-        :return: true | false
-        """
-        return re.match(identifier, token) is not None
-
-    def _isConstant(self, token):
-        """
-        Checks if token is a constant. \n
-        :param token:
-        :return: true | false
-        """
-        return re.match(constant, token) is not None
 
     def scanFile(self, filename):
         """
@@ -150,5 +149,3 @@ class Scanner:
             print("lexically correct")
         else:
             print(exception)
-
-
