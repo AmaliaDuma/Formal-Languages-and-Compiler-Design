@@ -7,6 +7,10 @@ class FiniteAutomaton:
         self._transitions = {}
 
     def readFromFile(self, filename):
+        """
+        Reads the elements of the fa from the file given as parameter. \n
+        :param filename: name of file
+        """
         with open(filename) as file:
             # 1st line - states separated by ,
             self._states = file.readline().strip().split(',')
@@ -30,15 +34,22 @@ class FiniteAutomaton:
                 self._transitions[(src_state, dest_state)] = values
 
     def isAccepted(self, sequence):
+        """
+        Checks if sequence is accepted. \n
+        :return: true | false
+        """
         crt_state = self._initial_state
 
         for symbol in sequence:
             crt_state = self._getNextState(crt_state, symbol)
             if crt_state == -1:
                 return False
-        return True
+        return crt_state in self._final_states
 
     def _getNextState(self, state, value):
+        """
+        Gets next state reachable from the crt state and the value we want to read.
+        """
         for key in self._transitions.keys():
             if key[0] == state:
                 if value in self._transitions[key]:
