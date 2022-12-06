@@ -44,11 +44,21 @@ class Tests:
         assert self.parser.getWorkingStack(), [("S", 1), "a"]
         assert self.parser.getInputStack(), ["A"]
 
+    def test_advance(self):
+        self.parser.setInputStack(['a', 'A'])
+        self.parser.setWorkingStack([('S', 0)])
+        self.parser.setIndex(1)
+        self.parser.advance()
+        assert self.parser.getIndex(), 2
+        assert self.parser.getInputStack(), ['A']
+        assert self.parser.getWorkingStack(), ['a']
+
     def run(self):
         self.test_expand()
         self.test_momentaryInsucces()
         self.test_success()
         self.test_back()
         self.test_anotherTry()
+        self.test_advance()
 
 
