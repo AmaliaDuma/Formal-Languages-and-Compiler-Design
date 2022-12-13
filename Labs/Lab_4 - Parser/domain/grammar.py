@@ -14,6 +14,9 @@ class Grammar:
     def getStartingSymbol(self):
         return self._S
 
+    def getProductions(self, symbol):
+        return self._P[symbol]
+
     def existsNextProduction(self, symbol, prodNr):
         if self._P[symbol][-1][1] == prodNr:
             return False
@@ -22,10 +25,8 @@ class Grammar:
     def getProduction(self, symbol, prodNr):
         for p in self._P[symbol]:
             if p[1] == prodNr:
+                # return p[0]
                 return p
-
-    def getProductions(self, symbol):
-        return self._P[symbol]
 
     def readFromFile(self, filename):
         """

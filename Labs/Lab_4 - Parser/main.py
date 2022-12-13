@@ -10,7 +10,9 @@ if __name__ == '__main__':
     print('Input sequence to be parsed: ')
     sequence = input()
     parser.parsingStrategy(sequence)
+
     if parser.getState() == 'f':
         out = ParserOutput(parser.getTree())
         out.printTree()
+
 
