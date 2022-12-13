@@ -5,6 +5,12 @@ class Grammar:
         self._P = {}
         self._S = []
 
+    def getTerminals(self):
+        return self._E
+
+    def getNonTerminals(self):
+        return self._N
+
     def getStartingSymbol(self):
         return self._S
 
