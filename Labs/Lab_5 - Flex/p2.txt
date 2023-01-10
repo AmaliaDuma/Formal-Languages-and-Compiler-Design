@@ -1,0 +1,22 @@
+{
+	n : int;
+	div : int;
+	check : int;
+
+	div = 2;
+	check = 1;
+	>>n;
+	
+	while (div <= n/2 && check == 1) {
+		if (n % div == 0){
+			check = 0;
+		}
+		div = div + 1;
+	}
+	
+	if (check == 0)	{
+		<<"Number is prime";
+	} else {
+		<<"Number is not prime";
+	}
+}

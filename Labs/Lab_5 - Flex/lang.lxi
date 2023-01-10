@@ -1,0 +1,114 @@
+%option noyywrap
+%{ 
+#include <stdlib.h>
+#include <string.h>
+#include <math.h> 
+
+typedef struct {
+    char token[30];
+    int position;
+} structure;
+
+int pifLen = 0;
+int stLen = 0;
+
+structure pif[100];
+structure symbolTable[30];
+
+int getPosition(char* token) {
+    int position = -1;
+    int index = 0;
+    while(index < stLen && position == -1) {
+        int found = strcmp(symbolTable[index].token, token);
+
+        if(found == 0) {
+            position = symbolTable[index].position;
+        }
+
+        index++;
+    }
+
+    return position;
+}
+
+void addToPIF(char* token, int position) {
+    strcpy(pif[pifLen].token, token);
+    pif[pifLen].position = position;
+    pifLen++;
+}
+
+void addConstantOrIdentifier(char* token) {
+    // Check if token is in ST by searching for its position
+    int position = getPosition(token);
+
+    if(position == -1) {
+		// Elem not in ST -> add it with position = current length of ST
+        addToPIF(token, stLen);
+
+        // Add token to ST
+        strcpy(symbolTable[stLen].token, token);
+        symbolTable[stLen].position = stLen;
+        stLen++;
+    } else {
+        addToPIF(token, position);
+    }
+}
+
+void printStructures() {
+    int index;
+
+    printf("Symbol table:\n");
+    printf("Token | Position\n");
+    for(index = 0; index < stLen; index++) {
+        printf("%s | %d\n", symbolTable[index].token, symbolTable[index].position);
+    }
+
+    printf("PIF:\n");
+    printf("Token | Position\n");
+    for(index = 0; index < pifLen; index++) {
+        printf("%s | %d\n", pif[index].token, pif[index].position);
+    
+    }
+}
+%} 
+CHARACTER \'[a-zA-Z0-9]\'
+STRING \"[a-zA-Z0-9 ]*\"
+DIGIT [0-9]
+NZ_DIGIT [1-9]
+INTEGER	[+-]?[1-9][0-9]*|0
+LETTER [a-zA-Z]
+IDENTIFIER [a-z][a-zA-Z0-9]*
+
+%%
+{INTEGER} {addConstantOrIdentifier(yytext);}
+{CHARACTER} {addConstantOrIdentifier(yytext);}
+{STRING} {addConstantOrIdentifier(yytext);}
+[+\-*/%] {addToPIF(yytext, -1);}
+==|<|<=|>=|>|!=|= {addToPIF(yytext, -1);}
+&&|\|\||! {addToPIF(yytext, -1);}
+>>|<< {addToPIF(yytext, -1);}
+:|;|\[|\]|\{|\}|\(|\) {addToPIF(yytext, -1);}
+if|else|int|char|elif|while {addToPIF(yytext, -1);}
+{IDENTIFIER} {addConstantOrIdentifier(yytext);}
+[\t\n ]+
+[+-]?0[0-9]*                    printf("Illegal integer at line\n");
+[0-9]+[a-zA-Z_]+[a-zA-Z0-9_]*   printf("Illegal identifier: %s\n", yytext);
+\'[a-zA-Z0-9]{2,}\'             printf("Character of length >=2 at line\n");
+.                               printf("Lexical error: %s\n", yytext);
+
+%%
+
+int main( argc, argv ) 
+int argc;
+char **argv; 
+{ 
+    ++argv, --argc; /* skip over program name */ 
+    if ( argc > 0 ) 
+    yyin = fopen( argv[0], "r" ); 
+    else 
+     yyin = stdin; 
+    yylex(); 
+    printStructures();
+
+    return 0;
+} 
