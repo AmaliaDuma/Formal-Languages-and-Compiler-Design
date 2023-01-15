@@ -1,0 +1,14 @@
+{
+	n : int;
+	sum : int;
+	nr : int;
+
+	sum = 0;
+	>>n;
+	while (n != 0){
+		>>nr;
+		sum = sum + nr;
+		n = n - 1;
+	}
+	<<sum;
+}
